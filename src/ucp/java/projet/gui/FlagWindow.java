@@ -18,7 +18,7 @@ public class FlagWindow extends JFrame {
     public FlagWindow() {
         panel.setLayout(null);
 
-        this.setTitle("Drapeau");
+        this.setTitle("Flag");
         this.setIconImage(Toolkit.getDefaultToolkit().getImage("resources/penguin.png"));
         this.setSize(500, 300);
         this.setLocationRelativeTo(null);
