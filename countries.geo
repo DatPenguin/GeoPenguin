@@ -1,0 +1,9 @@
+France,1
+Espagne,2
+Russie,3
+Italie,4
+Portugal,5
+Angleterre,6
+Slovenie,7
+Suede,8
+Turquie,9
