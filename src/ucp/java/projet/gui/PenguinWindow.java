@@ -20,10 +20,11 @@ public class PenguinWindow extends JFrame implements ActionListener {
     private JTextArea generated = new JTextArea();
     private JLabel genLabel = new JLabel();
     private JButton valider = new JButton();
-    private JButton moreButton = new JButton();
+    private JButton flagButton = new JButton();
+    private JButton mapButton = new JButton();
     private JLabel banner = new JLabel();
     private JLabel background = new JLabel();
-    private JComboBox<String> comboBox = new JComboBox(/*Main.list.toArray()*/Main.countryList.keySet().toArray());
+    private JComboBox<String> comboBox = new JComboBox(Main.countryList.keySet().toArray());
 
     public PenguinWindow() {
 
@@ -37,11 +38,17 @@ public class PenguinWindow extends JFrame implements ActionListener {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(panel);
 
-        moreButton.setBounds(220, 150, 175, 30);
-        moreButton.setText("Plus d'informations");
-        moreButton.setVisible(true);
-        moreButton.addActionListener(this);
-        panel.add(moreButton);
+        flagButton.setBounds(220, 150, 175, 30);
+        flagButton.setText("Afficher le drapeau");
+        flagButton.setVisible(true);
+        flagButton.addActionListener(this);
+        panel.add(flagButton);
+
+        mapButton.setBounds(220, 185, 175, 30);
+        mapButton.setText("Afficher la carte");
+        mapButton.setVisible(true);
+        mapButton.addActionListener(this);
+        panel.add(mapButton);
 
         comboBox.setBounds(100, 230, 225, 30);
         comboBox.setVisible(true);
@@ -91,8 +98,11 @@ public class PenguinWindow extends JFrame implements ActionListener {
             generated.setText("English Name : " + c.getEnglishName() + "\nFrench Name : " + c.getFrenchName() +
             "\nISO2 : " + c.getISO2() + "\nISO3 : " + c.getISO3() + "\nNumeric Value : " + c.getNumeric());
         }
-        else if (e.getSource() == moreButton) {
+        else if (e.getSource() == flagButton) {
             new FlagWindow();
+        }
+        else if (e.getSource() == mapButton) {
+            new MapWindow();
         }
     }
 

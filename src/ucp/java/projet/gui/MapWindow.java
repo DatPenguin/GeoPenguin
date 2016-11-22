@@ -7,18 +7,19 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**
- * Created by penguin on 15/11/16.
+ * Created by penguin on 22/11/16.
  */
-public class FlagWindow extends JFrame {
+public class MapWindow extends JFrame {
+
 
     private JPanel panel = new JPanel();
     private JLabel background = new JLabel();
     private JLabel errorLabel = new JLabel();
 
-    public FlagWindow() {
+    public MapWindow() {
         panel.setLayout(null);
 
-        this.setTitle("Drapeau");
+        this.setTitle("Carte");
         this.setIconImage(Toolkit.getDefaultToolkit().getImage("resources/penguin.png"));
         this.setSize(500, 300);
         this.setLocationRelativeTo(null);
@@ -30,11 +31,11 @@ public class FlagWindow extends JFrame {
         BufferedImage i = null;
 
         try {
-                i = toBufferedImage(new ImageIcon("flags/"
+            i = toBufferedImage(new ImageIcon("maps/"
                     + Main.countryList.get(Main.getWindow().getComboBox().getSelectedItem()).getISO2().toLowerCase()
-                    + "-lgflag.gif").getImage());
+                    + "-map.gif").getImage());
         } catch (Exception e) {
-            System.err.println("Flag not found");
+            System.err.println("Map not found");
         }
 
         if (i != null)
@@ -43,7 +44,7 @@ public class FlagWindow extends JFrame {
         panel.add(background);
 
         errorLabel.setBounds(160, 120, 1000, 15);
-        errorLabel.setText("Aucun drapeau trouvable");
+        errorLabel.setText("Aucune carte trouvable");
         errorLabel.setForeground(Color.BLACK);
         errorLabel.setFont(errorLabel.getFont().deriveFont(Font.PLAIN).deriveFont(20f));
         errorLabel.setVisible(true);

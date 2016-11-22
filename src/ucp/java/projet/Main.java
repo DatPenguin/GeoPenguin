@@ -10,7 +10,6 @@ public class Main {
 
     public static final String COUNTRY_CODES = new String("country_codes_iso.csv");
     private static PenguinWindow p;
-    //public static final String COUNTRY_CODES = new String("countries.geo");
 
     public static CountryList countryList = new CountryList();
     private static Importer importer;
@@ -20,6 +19,7 @@ public class Main {
             importer = new Importer();
         } catch (IOException e) {
             e.printStackTrace();
+            return;
         }
 
         if (argsContain(args, "console")) {
