@@ -14,6 +14,15 @@ public class Country {
     private ImageIcon flag;
     private ImageIcon map;
     private int popDensity;
+    private String pop;
+
+    public String getPop() {
+        return pop;
+    }
+
+    public void setPop(String pop) {
+        this.pop = pop;
+    }
 
     public String getFrenchName() {
         return frenchName;

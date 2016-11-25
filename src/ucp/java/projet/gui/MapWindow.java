@@ -43,7 +43,6 @@ public class MapWindow extends JFrame {
                     + "-map.gif").getImage());
             mapFinder(new File("locator"), Main.countryList.get(Main.getWindow().getComboBox().getSelectedItem()).getISO2().toLowerCase() + "_large_locator.gif");
             j = toBufferedImage(new ImageIcon(foundMap).getImage());
-            System.out.println(foundMap);
         } catch (Exception e) {
             System.err.println("Map not found");
         }
@@ -58,7 +57,6 @@ public class MapWindow extends JFrame {
             regionMap.setVisible(true);
             panel.add(regionMap);
         }
-
 
         errorLabel.setBounds(160, 120, 1000, 15);
         errorLabel.setText("Aucune carte trouvable");

@@ -4,23 +4,17 @@ import ucp.java.projet.gui.PenguinWindow;
 import ucp.java.projet.utilities.CountryList;
 import ucp.java.projet.utilities.Importer;
 
-import java.io.IOException;
-
 public class Main {
 
     public static final String COUNTRY_CODES = new String("country_codes_iso.csv");
+    public static final String COUNTRY_POP = new String("POP.csv");
     private static PenguinWindow p;
 
     public static CountryList countryList = new CountryList();
     private static Importer importer;
 
     public static void main(String[] args) {
-        try {
-            importer = new Importer();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return;
-        }
+        importer = new Importer();
 
         if (argsContain(args, "console")) {
             System.err.println("Console mode");
