@@ -75,4 +75,8 @@ public class Importer {
         if (IndianaJones.getByISO3(buffer[0]) != null)
             IndianaJones.getByISO3(buffer[0].replaceAll("\"", "")).setPop(buffer[4].replaceAll("\"", "").replaceAll(",", " ") + " 000");
     }
+
+    private void xmlParser(String s) {
+        // TODO Faire un parser a la main pour le fichier sourceXML.xml
+    }
 }
