@@ -12,6 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 
 @SuppressWarnings("serial")
 public class PenguinWindow extends JFrame implements ActionListener {
@@ -105,6 +106,29 @@ public class PenguinWindow extends JFrame implements ActionListener {
         else if (e.getSource() == mapButton) {
             new MapWindow();
         }
+    }
+
+    /**
+     * Methode utilitaire pour transformer une Image en BufferedImage
+     *
+     * @param img Image a bufferiser
+     * @return BufferedImage
+     */
+    public static BufferedImage toBufferedImage(Image img) {
+        if (img instanceof BufferedImage) {
+            return (BufferedImage) img;
+        }
+
+        // Cree une BufferedImage avec transparence
+        BufferedImage bimage = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+
+        // Dessine l'image sur la BufferedImage
+        Graphics2D bGr = bimage.createGraphics();
+        bGr.drawImage(img, 0, 0, null);
+        bGr.dispose();
+
+        // Retourne la BufferedImage ainsi creee
+        return bimage;
     }
 
     public JComboBox<String> getComboBox() {

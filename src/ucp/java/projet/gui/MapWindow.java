@@ -10,11 +10,13 @@ import java.io.IOException;
 import java.util.Arrays;
 
 /**
- * Created by penguin on 22/11/16.
+ * @author Matteo Staiano
+ * @description Fenetre affichant les cartes du pays choisi et de la region du monde correspondante
  */
 public class MapWindow extends JFrame {
 
 
+    // Initialisation des elements
     private JPanel panel = new JPanel();
     private JLabel countryMap = new JLabel();
     private JLabel regionMap = new JLabel();
@@ -38,15 +40,16 @@ public class MapWindow extends JFrame {
         BufferedImage j = null;
 
         try {
-            i = toBufferedImage(new ImageIcon("maps/"
+            i = PenguinWindow.toBufferedImage(new ImageIcon("maps/"
                     + Main.countryList.get(Main.getWindow().getComboBox().getSelectedItem()).getFIPS().toLowerCase()
                     + "-map.gif").getImage());
             mapFinder(new File("locator"), Main.countryList.get(Main.getWindow().getComboBox().getSelectedItem()).getFIPS().toLowerCase() + "_large_locator.gif");
-            j = toBufferedImage(new ImageIcon(foundMap).getImage());
+            j = PenguinWindow.toBufferedImage(new ImageIcon(foundMap).getImage());
         } catch (Exception e) {
             System.err.println("Map not found");
         }
 
+        // Affichage des cartes en tant qu'icones de label
         if (i != null) {
             countryMap.setIcon(new ImageIcon(i.getScaledInstance(500, 400, Image.SCALE_SMOOTH)));
             countryMap.setVisible(true);
@@ -58,6 +61,7 @@ public class MapWindow extends JFrame {
             panel.add(regionMap);
         }
 
+        // Message s'affichant si aucune carte n'a pu etre trouvee
         errorLabel.setBounds(160, 120, 1000, 15);
         errorLabel.setText("Aucune carte trouvable");
         errorLabel.setForeground(Color.BLACK);
@@ -67,25 +71,6 @@ public class MapWindow extends JFrame {
 
         panel.setVisible(true);
         this.setVisible(true);
-    }
-
-    public static BufferedImage toBufferedImage(Image img)
-    {
-        if (img instanceof BufferedImage)
-        {
-            return (BufferedImage) img;
-        }
-
-        // Create a buffered image with transparency
-        BufferedImage bimage = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
-
-        // Draw the image on to the buffered image
-        Graphics2D bGr = bimage.createGraphics();
-        bGr.drawImage(img, 0, 0, null);
-        bGr.dispose();
-
-        // Return the buffered image
-        return bimage;
     }
 
 

@@ -16,19 +16,31 @@ public class Main {
      */
     public static final String COUNTRY_CODES = new String("country_codes_iso.csv");
 
+    /**
+     * Emplacement des references FIPS
+     */
     public static final String FIPS_CODES = new String("sourceXML.xml");
 
     /**
      * Emplacement des fichiers concernant la population des pays
      */
     public static final String COUNTRY_POP = new String("POP.csv");
+
+    /**
+     * Objet contenant notre fenetre
+     */
     private static PenguinWindow p;
 
+    /**
+     * Liste des pays, utile pour la ComboBox
+     */
     public static CountryList countryList = new CountryList();
-    private static Importer importer;
 
+    /**
+     * @param args Arguments de lancement
+     */
     public static void main(String[] args) {
-        importer = new Importer();
+        new Importer();                      // Un simple appel de l'Importer le lance
 
         if (argsContain(args, "console")) {             // Verifie si on veut lancer le programme en mode console
             System.err.println("Console mode");         // Confirme le lancement en console
@@ -39,9 +51,12 @@ public class Main {
         }
     }
 
+    /**
+     * @return Fenetre principale du programme
+     */
     public static PenguinWindow getWindow() {
         return p;
-    }   // Getter sur la Window
+    }
 
     /**
      * @param args   Parametres de lancement
