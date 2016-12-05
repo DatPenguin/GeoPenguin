@@ -39,9 +39,9 @@ public class MapWindow extends JFrame {
 
         try {
             i = toBufferedImage(new ImageIcon("maps/"
-                    + Main.countryList.get(Main.getWindow().getComboBox().getSelectedItem()).getISO2().toLowerCase()
+                    + Main.countryList.get(Main.getWindow().getComboBox().getSelectedItem()).getFIPS().toLowerCase()
                     + "-map.gif").getImage());
-            mapFinder(new File("locator"), Main.countryList.get(Main.getWindow().getComboBox().getSelectedItem()).getISO2().toLowerCase() + "_large_locator.gif");
+            mapFinder(new File("locator"), Main.countryList.get(Main.getWindow().getComboBox().getSelectedItem()).getFIPS().toLowerCase() + "_large_locator.gif");
             j = toBufferedImage(new ImageIcon(foundMap).getImage());
         } catch (Exception e) {
             System.err.println("Map not found");

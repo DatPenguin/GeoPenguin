@@ -54,7 +54,7 @@ public class PenguinWindow extends JFrame implements ActionListener {
         comboBox.setVisible(true);
         panel.add(comboBox);
 
-        generated.setBounds(125, 120, 275, 100);
+        generated.setBounds(125, 120, 275, 200);
         generated.setForeground(Color.white);
         generated.setText("Choisissez un pays et cliquez sur Valider");
         generated.setVisible(true);
@@ -70,7 +70,7 @@ public class PenguinWindow extends JFrame implements ActionListener {
         valider.addActionListener(this);
         panel.add(valider);
 
-        genLabel.setBounds(125, 100, 200, 15);
+        genLabel.setBounds(125, 100, 300, 15);
         genLabel.setText("Bienvenue dans GeoPenguin");
         genLabel.setForeground(Color.white);
         genLabel.setVisible(true);
@@ -96,7 +96,8 @@ public class PenguinWindow extends JFrame implements ActionListener {
         if (e.getSource() == valider) {
             Country c = Main.countryList.get(comboBox.getSelectedItem());
             generated.setText("English Name : " + c.getEnglishName() + "\nFrench Name : " + c.getFrenchName() +
-            "\nISO2 : " + c.getISO2() + "\nISO3 : " + c.getISO3() + "\nNumeric Value : " + c.getNumeric() + "\nPopulation : " + c.getPop());
+                    "\nISO2 : " + c.getISO2() + "\nISO3 : " + c.getISO3() + "\nNumeric Value : " + c.getNumeric() + "\nPopulation : " + c.getPop() + "\nFIPS Name : "
+                    + c.getFIPSName() + "\nFIPS : " + c.getFIPS());
         }
         else if (e.getSource() == flagButton) {
             new FlagWindow();

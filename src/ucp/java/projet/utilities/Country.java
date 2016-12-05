@@ -15,6 +15,24 @@ public class Country {
     private ImageIcon map;
     private int popDensity;
     private String pop;
+    private String FIPS;
+    private String FIPSName;
+
+    public String getFIPS() {
+        return FIPS;
+    }
+
+    public void setFIPS(String FIPS) {
+        this.FIPS = FIPS;
+    }
+
+    public String getFIPSName() {
+        return FIPSName;
+    }
+
+    public void setFIPSName(String FIPSName) {
+        this.FIPSName = FIPSName;
+    }
 
     public String getPop() {
         return pop;

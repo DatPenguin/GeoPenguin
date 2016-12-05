@@ -31,7 +31,7 @@ public class FlagWindow extends JFrame {
 
         try {
                 i = toBufferedImage(new ImageIcon("flags/"
-                    + Main.countryList.get(Main.getWindow().getComboBox().getSelectedItem()).getISO2().toLowerCase()
+                        + Main.countryList.get(Main.getWindow().getComboBox().getSelectedItem()).getFIPS().toLowerCase()
                     + "-lgflag.gif").getImage());
         } catch (Exception e) {
             System.err.println("Flag not found");

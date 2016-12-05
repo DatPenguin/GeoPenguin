@@ -25,6 +25,7 @@ public class Importer {
         try {
             readBasics();
             readPop();
+            readFIPS();
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Erreur de lecture des fichiers");
@@ -41,6 +42,21 @@ public class Importer {
             c = new Country(buffer);
             csvParser(buffer);
             Main.countryList.put(c.getFrenchName(), c);
+            buffer = reader.readLine();
+        }
+    }
+
+    private void readFIPS() throws IOException {
+        fileReader = new FileReader(Main.FIPS_CODES);
+        reader = new BufferedReader(fileReader);
+
+        buffer = reader.readLine();
+        buffer = reader.readLine();
+        buffer = reader.readLine();
+        while (buffer != null) {
+            c = new Country(buffer);
+            xmlParser(buffer);
+            //
             buffer = reader.readLine();
         }
     }
@@ -63,6 +79,9 @@ public class Importer {
 
     private void csvParser(String s) {
         String[] buffer = s.split(",(?=([^\\\"]*\\\"[^\\\"]*\\\")*[^\\\"]*$)", -1);
+        for (int i = 0; i < 5; i++)
+            if (buffer[i].startsWith(" "))
+                buffer[i] = buffer[i].substring(1);
         c.setEnglishName(buffer[0].replaceAll("\"", ""));
         c.setFrenchName(buffer[1].replaceAll("\"", ""));
         c.setISO2(buffer[2].replaceAll("\"", ""));
@@ -71,12 +90,19 @@ public class Importer {
     }
 
     private void popParser(String s) {
-        String[] buffer = s.split(",(?=([^\\\"]*\\\"[^\\\"]*\\\")*[^\\\"]*$)", -1);
+        //String[] buffer = s.split(",(?=([^\\\"]*\\\"[^\\\"]*\\\")*[^\\\"]*$)", -1);
+        String[] buffer = s.split(",", 0);
         if (IndianaJones.getByISO3(buffer[0]) != null)
             IndianaJones.getByISO3(buffer[0].replaceAll("\"", "")).setPop(buffer[4].replaceAll("\"", "").replaceAll(",", " ") + " 000");
     }
 
     private void xmlParser(String s) {
-        // TODO Faire un parser a la main pour le fichier sourceXML.xml
+        String[] buffer = s.split("\"", 0);
+        if (!buffer[0].startsWith("</"))
+            if (IndianaJones.getByFIPSName(buffer[1]) != null) {
+                IndianaJones.getByFIPSName(buffer[1]).setFIPSName(buffer[1]);
+                IndianaJones.getByFIPSName(buffer[1]).setFIPS(buffer[3]);
+            }
     }
+
 }

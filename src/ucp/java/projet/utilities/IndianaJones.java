@@ -26,4 +26,24 @@ public class IndianaJones {
         }
         return null;
     }
+
+    public static Country getByEngName(String engName) {
+        Country c;
+        for (String s : Main.countryList.keySet()) {
+            c = Main.countryList.get(s);
+            if (engName.equalsIgnoreCase(c.getEnglishName()))
+                return c;
+        }
+        return null;
+    }
+
+    public static Country getByFIPSName(String FIPSName) {
+        Country c;
+        for (String s : Main.countryList.keySet()) {
+            c = Main.countryList.get(s);
+            if (FIPSName.contains(c.getEnglishName()) || c.getEnglishName().contains(FIPSName))
+                return c;
+        }
+        return null;
+    }
 }
