@@ -18,11 +18,13 @@ public class Importer {
 
     private FileReader fileReader;
     private BufferedReader reader;
-    private String buffer = new String("");
+    private String buffer = "";
     private Country c;
+    public static String deserializedName;
 
     public Importer() {
         try {
+            deserializedName = SerializeSettings.deserialize();
             readBasics();
             readPop();
             readFIPS();
@@ -56,7 +58,6 @@ public class Importer {
         while (buffer != null) {
             c = new Country(buffer);
             xmlParser(buffer);
-            //
             buffer = reader.readLine();
         }
     }
@@ -90,7 +91,6 @@ public class Importer {
     }
 
     private void popParser(String s) {
-        //String[] buffer = s.split(",(?=([^\\\"]*\\\"[^\\\"]*\\\")*[^\\\"]*$)", -1);
         String[] buffer = s.split(",", 0);
         if (IndianaJones.getByISO3(buffer[0]) != null)
             IndianaJones.getByISO3(buffer[0].replaceAll("\"", "")).setPop(buffer[4].replaceAll("\"", "").replaceAll(",", " ") + " 000");
@@ -98,7 +98,7 @@ public class Importer {
 
     private void xmlParser(String s) {
         String[] buffer = s.split("\"", 0);
-        if (!buffer[0].startsWith("</"))
+        if (!buffer[0].startsWith("</") && !buffer[0].startsWith("<!"))
             if (IndianaJones.getByFIPSName(buffer[1]) != null) {
                 IndianaJones.getByFIPSName(buffer[1]).setFIPSName(buffer[1]);
                 IndianaJones.getByFIPSName(buffer[1]).setFIPS(buffer[3]);

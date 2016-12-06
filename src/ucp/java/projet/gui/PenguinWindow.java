@@ -7,6 +7,7 @@ package ucp.java.projet.gui;
 
 import ucp.java.projet.Main;
 import ucp.java.projet.utilities.Country;
+import ucp.java.projet.utilities.Importer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -53,6 +54,7 @@ public class PenguinWindow extends JFrame implements ActionListener {
 
         comboBox.setBounds(200, 250, 225, 30);
         comboBox.setVisible(true);
+        comboBox.setSelectedItem(Importer.deserializedName);
         panel.add(comboBox);
 
         generated.setBounds(125, 120, 275, 200);
@@ -108,6 +110,10 @@ public class PenguinWindow extends JFrame implements ActionListener {
         }
     }
 
+    public Country getCurrentCountry() {
+        return Main.countryList.get(comboBox.getSelectedItem());
+    }
+
     /**
      * Methode utilitaire pour transformer une Image en BufferedImage
      *
@@ -133,5 +139,9 @@ public class PenguinWindow extends JFrame implements ActionListener {
 
     public JComboBox<String> getComboBox() {
         return comboBox;
+    }
+
+    public static String whereAreTheFiles() {
+        return JOptionPane.showInputDialog("Veuillez entrer l'emplacement des fichiers de donnees :");
     }
 }

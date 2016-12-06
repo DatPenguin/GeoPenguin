@@ -3,6 +3,7 @@ package ucp.java.projet;
 import ucp.java.projet.gui.PenguinWindow;
 import ucp.java.projet.utilities.CountryList;
 import ucp.java.projet.utilities.Importer;
+import ucp.java.projet.utilities.SerializeSettings;
 
 /**
  * @author Matteo Staiano, Morgane Guisy
@@ -11,20 +12,22 @@ import ucp.java.projet.utilities.Importer;
 
 public class Main {
 
+    public static String BASE_FOLDER = "";
+
     /**
      * Emplacement des codes pays
      */
-    public static final String COUNTRY_CODES = new String("country_codes_iso.csv");
+    public static final String COUNTRY_CODES = BASE_FOLDER + "country_codes_iso.csv";
 
     /**
      * Emplacement des references FIPS
      */
-    public static final String FIPS_CODES = new String("sourceXML.xml");
+    public static final String FIPS_CODES = BASE_FOLDER + "sourceXML.xml";
 
     /**
      * Emplacement des fichiers concernant la population des pays
      */
-    public static final String COUNTRY_POP = new String("POP.csv");
+    public static String COUNTRY_POP = BASE_FOLDER + "POP.csv";
 
     /**
      * Objet contenant notre fenetre
@@ -40,6 +43,8 @@ public class Main {
      * @param args Arguments de lancement
      */
     public static void main(String[] args) {
+        BASE_FOLDER = PenguinWindow.whereAreTheFiles();
+        System.out.println(COUNTRY_POP); // TODO Ne semble pas marcher
         new Importer();                      // Un simple appel de l'Importer le lance
 
         if (argsContain(args, "console")) {             // Verifie si on veut lancer le programme en mode console
@@ -49,6 +54,12 @@ public class Main {
             System.err.println("GUI mode");             // Confirme le lancement en GUI
             p = new PenguinWindow();                    // Lance le GUI
         }
+
+        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+            public void run() {
+                SerializeSettings.serialize();
+            }
+        }));
     }
 
     /**
