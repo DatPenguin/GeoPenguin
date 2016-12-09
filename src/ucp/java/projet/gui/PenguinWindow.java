@@ -54,7 +54,8 @@ public class PenguinWindow extends JFrame implements ActionListener {
 
         comboBox.setBounds(200, 250, 225, 30);
         comboBox.setVisible(true);
-        comboBox.setSelectedItem(Importer.deserializedName);
+        if (Importer.deserializedName != null)
+            comboBox.setSelectedItem(Importer.deserializedName);
         panel.add(comboBox);
 
         generated.setBounds(125, 120, 275, 200);

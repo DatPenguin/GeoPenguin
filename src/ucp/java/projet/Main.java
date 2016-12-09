@@ -12,22 +12,31 @@ import ucp.java.projet.utilities.SerializeSettings;
 
 public class Main {
 
-    public static String BASE_FOLDER = "";
+    public static String BASE_FOLDER;
+
+    public static void initStrings() {
+        BASE_FOLDER = SerializeSettings.deserialize("settings");
+        if (BASE_FOLDER == null)
+            BASE_FOLDER = PenguinWindow.whereAreTheFiles();
+        COUNTRY_POP = BASE_FOLDER + "POP.csv";
+        COUNTRY_CODES = BASE_FOLDER + "country_codes_iso.csv";
+        FIPS_CODES = BASE_FOLDER + "sourceXML.xml";
+    }
 
     /**
      * Emplacement des codes pays
      */
-    public static final String COUNTRY_CODES = BASE_FOLDER + "country_codes_iso.csv";
+    public static String COUNTRY_CODES;
 
     /**
      * Emplacement des references FIPS
      */
-    public static final String FIPS_CODES = BASE_FOLDER + "sourceXML.xml";
+    public static String FIPS_CODES;
 
     /**
      * Emplacement des fichiers concernant la population des pays
      */
-    public static String COUNTRY_POP = BASE_FOLDER + "POP.csv";
+    public static String COUNTRY_POP;
 
     /**
      * Objet contenant notre fenetre
@@ -43,8 +52,7 @@ public class Main {
      * @param args Arguments de lancement
      */
     public static void main(String[] args) {
-        BASE_FOLDER = PenguinWindow.whereAreTheFiles();
-        System.out.println(COUNTRY_POP); // TODO Ne semble pas marcher
+        initStrings();
         new Importer();                      // Un simple appel de l'Importer le lance
 
         if (argsContain(args, "console")) {             // Verifie si on veut lancer le programme en mode console

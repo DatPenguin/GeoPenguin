@@ -24,7 +24,7 @@ public class Importer {
 
     public Importer() {
         try {
-            deserializedName = SerializeSettings.deserialize();
+            deserializedName = SerializeSettings.deserialize("country");
             readBasics();
             readPop();
             readFIPS();
