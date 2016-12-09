@@ -41,7 +41,17 @@ public class IndianaJones {
         Country c;
         for (String s : Main.countryList.keySet()) {
             c = Main.countryList.get(s);
-            if (FIPSName.contains(c.getEnglishName()) || c.getEnglishName().contains(FIPSName))
+            if (FIPSName.startsWith(c.getEnglishName()) || c.getEnglishName().startsWith(FIPSName))
+                return c;
+        }
+        return null;
+    }
+
+    public static Country searchByFrenchName(String frName) {
+        Country c;
+        for (String s : Main.countryList.keySet()) {
+            c = Main.countryList.get(s);
+            if (c.getFrenchName().contains(frName))
                 return c;
         }
         return null;

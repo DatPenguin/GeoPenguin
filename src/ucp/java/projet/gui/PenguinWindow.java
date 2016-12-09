@@ -6,6 +6,7 @@ package ucp.java.projet.gui;
  */
 
 import ucp.java.projet.Main;
+import ucp.java.projet.utilities.AutoCompletion;
 import ucp.java.projet.utilities.Country;
 import ucp.java.projet.utilities.Importer;
 
@@ -24,6 +25,7 @@ public class PenguinWindow extends JFrame implements ActionListener {
     private JButton valider = new JButton();
     private JButton flagButton = new JButton();
     private JButton mapButton = new JButton();
+    private JButton advancedButton = new JButton();
     private JLabel banner = new JLabel();
     private JLabel background = new JLabel();
     private JComboBox<String> comboBox = new JComboBox(Main.countryList.keySet().toArray());
@@ -52,10 +54,17 @@ public class PenguinWindow extends JFrame implements ActionListener {
         mapButton.addActionListener(this);
         panel.add(mapButton);
 
+        advancedButton.setBounds(5, 220, 150, 30);
+        advancedButton.setText("Recherche");
+        advancedButton.setVisible(true);
+        advancedButton.addActionListener(this);
+        panel.add(advancedButton);
+
         comboBox.setBounds(200, 250, 225, 30);
         comboBox.setVisible(true);
         if (Importer.deserializedName != null)
             comboBox.setSelectedItem(Importer.deserializedName);
+        AutoCompletion.enable(comboBox);
         panel.add(comboBox);
 
         generated.setBounds(125, 120, 275, 200);
@@ -108,6 +117,8 @@ public class PenguinWindow extends JFrame implements ActionListener {
         }
         else if (e.getSource() == mapButton) {
             new MapWindow();
+        } else if (e.getSource() == advancedButton) {
+            new SearchWindow();
         }
     }
 
