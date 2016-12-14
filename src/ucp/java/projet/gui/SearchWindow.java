@@ -10,7 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * @author Matteo Staiano
+ * @author Matteo Staiano, Morgane Guisy
+ * @description Fenetre de recherche avancee
  */
 public class SearchWindow extends JFrame implements ActionListener {
 

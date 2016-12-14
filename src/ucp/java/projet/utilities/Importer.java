@@ -1,19 +1,16 @@
 package ucp.java.projet.utilities;
 
-/**
- * Created by penguin on 07/11/16.
- */
-
 import ucp.java.projet.Main;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-/**
- * Permet d'importer les donnees des pays depuis des fichiers
- */
 
+/**
+ * @author Matteo Staiano, Morgane Guisy
+ * @description Classe utilitaire permettant l'importation des donnees depuis les fichiers fournis
+ */
 public class Importer {
 
     private FileReader fileReader;

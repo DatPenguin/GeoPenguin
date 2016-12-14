@@ -13,6 +13,10 @@ import java.beans.PropertyChangeListener;
  * To view a copy of the public domain dedication, visit
  * http://creativecommons.org/licenses/publicdomain/
  */
+
+/**
+ * @description Cette classe sous licence CC Public Domain permet l'autocompletion de la ComboBox
+ */
 public class AutoCompletion extends PlainDocument {
     JComboBox comboBox;
     ComboBoxModel model;

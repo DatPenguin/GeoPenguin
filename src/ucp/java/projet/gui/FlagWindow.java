@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**
- * @author Matteo Staiano
+ * @author Matteo Staiano, Morgane Guisy
  * @description Fenetre affichant le drapeau du pays choisi
  */
 

@@ -1,10 +1,5 @@
 package ucp.java.projet.gui;
 
-/**
- * @author Ethan
- * @date 04/11/2016.
- */
-
 import ucp.java.projet.Main;
 import ucp.java.projet.utilities.AutoCompletion;
 import ucp.java.projet.utilities.Country;
@@ -16,7 +11,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
-@SuppressWarnings("serial")
+
+/**
+ * @author Matteo Staiano, Morgane Guisy
+ * @description Fenetre principale
+ */
 public class PenguinWindow extends JFrame implements ActionListener {
 
     private JPanel panel = new JPanel();

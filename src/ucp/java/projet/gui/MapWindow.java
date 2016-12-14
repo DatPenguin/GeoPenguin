@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.Arrays;
 
 /**
- * @author Matteo Staiano
+ * @author Matteo Staiano, Morgane Guisy
  * @description Fenetre affichant les cartes du pays choisi et de la region du monde correspondante
  */
 public class MapWindow extends JFrame {

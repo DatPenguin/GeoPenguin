@@ -5,7 +5,7 @@ import ucp.java.projet.Main;
 import java.io.*;
 
 /**
- * @author Matteo Staiano
+ * @author Matteo Staiano, Morgane Guisy
  * @description Permet de serialiser les parametres pour les conserver entre deux utilisations du programme
  */
 public class SerializeSettings {
@@ -37,8 +37,9 @@ public class SerializeSettings {
         try {
             ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(new File(file))));
             out = ois.readObject().toString();
+            ois.close();
         } catch (IOException e) {
-            System.err.println("Fichier de parametres introuvable. Il sera cree a la fin de l'execution.");
+            System.err.println("Fichier de parametres \"" + file + "\" introuvable. Il sera cree a la fin de l'execution.");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }

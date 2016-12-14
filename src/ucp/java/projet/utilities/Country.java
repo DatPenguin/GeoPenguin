@@ -3,7 +3,8 @@ package ucp.java.projet.utilities;
 import javax.swing.*;
 
 /**
- * Created by penguin on 08/11/16.
+ * @author Matteo Staiano, Morgane Guisy
+ * @description Objet contenant les informations des pays
  */
 public class Country {
     private String englishName;

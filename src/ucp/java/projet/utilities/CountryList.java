@@ -4,7 +4,8 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /**
- * Created by penguin on 08/11/16.
+ * @author Matteo Staiano, Morgane Guisy
+ * @description Liste de pays heritant de TreeMap
  */
 public class CountryList extends TreeMap<String, Country> {
     @Override

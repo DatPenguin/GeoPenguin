@@ -12,16 +12,12 @@ import ucp.java.projet.utilities.SerializeSettings;
 
 public class Main {
 
-    public static String BASE_FOLDER;
+    public static boolean CONSOLE_MODE = false;
 
-    public static void initStrings() {
-        BASE_FOLDER = SerializeSettings.deserialize("settings");
-        if (BASE_FOLDER == null)
-            BASE_FOLDER = PenguinWindow.whereAreTheFiles();
-        COUNTRY_POP = BASE_FOLDER + "POP.csv";
-        COUNTRY_CODES = BASE_FOLDER + "country_codes_iso.csv";
-        FIPS_CODES = BASE_FOLDER + "sourceXML.xml";
-    }
+    /**
+     * Dossier contenant tous les fichiers de donnees
+     */
+    public static String BASE_FOLDER;
 
     /**
      * Emplacement des codes pays
@@ -49,6 +45,20 @@ public class Main {
     public static CountryList countryList = new CountryList();
 
     /**
+     * Permet d'initialiser tous les chemins d'acces en tenant compte du BASE_FOLDER
+     */
+    public static void initStrings() {
+        BASE_FOLDER = SerializeSettings.deserialize("settings");
+        if (BASE_FOLDER == null && !CONSOLE_MODE)
+            BASE_FOLDER = PenguinWindow.whereAreTheFiles();
+        else if (CONSOLE_MODE)
+            BASE_FOLDER = "";
+        COUNTRY_POP = BASE_FOLDER + "POP.csv";
+        COUNTRY_CODES = BASE_FOLDER + "country_codes_iso.csv";
+        FIPS_CODES = BASE_FOLDER + "sourceXML.xml";
+    }
+
+    /**
      * @param args Arguments de lancement
      */
     public static void main(String[] args) {
@@ -57,13 +67,14 @@ public class Main {
 
         if (argsContain(args, "console")) {             // Verifie si on veut lancer le programme en mode console
             System.err.println("Console mode");         // Confirme le lancement en console
+            CONSOLE_MODE = true;
             System.out.println(countryList.toString());
         } else {
             System.err.println("GUI mode");             // Confirme le lancement en GUI
             p = new PenguinWindow();                    // Lance le GUI
         }
 
-        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {    // Execute le code suivant a la fermeture du programme
             public void run() {
                 SerializeSettings.serialize();
             }

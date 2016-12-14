@@ -3,8 +3,8 @@ package ucp.java.projet.utilities;
 import ucp.java.projet.Main;
 
 /**
- * Created by penguin on 25/11/16.
- * Cette classe s'appelle Indiana Jones car elle fouille les TreeMaps pour trouver des tresors
+ * @author Matteo Staiano, Morgane Guisy
+ * @description Cette classe s'appelle Indiana Jones car elle fouille les TreeMaps pour trouver des tresors
  */
 public class IndianaJones {
     public static Country getByISO2 (String ISO2) {
