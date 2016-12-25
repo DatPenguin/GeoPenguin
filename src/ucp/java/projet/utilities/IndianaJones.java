@@ -47,7 +47,7 @@ public class IndianaJones {
         return null;
     }
 
-    public static Country searchByFrenchName(String frName) {
+    public static Country getByFrenchName(String frName) {
         Country c;
         for (String s : Main.countryList.keySet()) {
             c = Main.countryList.get(s);

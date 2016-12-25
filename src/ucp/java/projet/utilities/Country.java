@@ -122,4 +122,17 @@ public class Country {
     public void setPopDensity(int popDensity) {
         this.popDensity = popDensity;
     }
+
+    @Override
+    public String toString() {
+        return "Nom EN ='" + englishName + '\'' +
+                "\nNom FR ='" + frenchName + '\'' +
+                "\nISO2 ='" + ISO2 + '\'' +
+                "\nISO3 ='" + ISO3 + '\'' +
+                "\nCode Numerique ='" + numeric + '\'' +
+                "\nDensite de Population =" + popDensity +
+                "\nPopulation ='" + pop + '\'' +
+                "\nFIPS ='" + FIPS + '\'' +
+                "\nNom FIPS ='" + FIPSName + '\'';
+    }
 }

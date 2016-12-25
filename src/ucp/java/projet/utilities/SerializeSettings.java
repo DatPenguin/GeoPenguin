@@ -30,6 +30,19 @@ public class SerializeSettings {
         }
     }
 
+    //TODO Trouver comment serialiser le dernier choix en console
+    public static void serializeConsole() {
+        ObjectOutputStream oos;
+        String str = Main.BASE_FOLDER;
+        try {
+            oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(new File("settings"))));
+            oos.writeObject(str);
+            oos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static String deserialize(String file) {
         ObjectInputStream ois;
         String out = null;

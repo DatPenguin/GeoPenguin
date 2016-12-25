@@ -88,7 +88,7 @@ public class Importer {
     }
 
     private void popParser(String s) {
-        String[] buffer = s.split(",", 0);
+        String[] buffer = s.split(",(?=([^\\\"]*\\\"[^\\\"]*\\\")*[^\\\"]*$)", -1);
         if (IndianaJones.getByISO3(buffer[0]) != null)
             IndianaJones.getByISO3(buffer[0].replaceAll("\"", "")).setPop(buffer[4].replaceAll("\"", "").replaceAll(",", " ") + " 000");
     }

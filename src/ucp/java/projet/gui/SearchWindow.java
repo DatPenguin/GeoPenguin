@@ -75,7 +75,7 @@ public class SearchWindow extends JFrame implements ActionListener {
                     c = IndianaJones.getByISO2(enteredCountry);
                     break;
                 case "Nom FR":
-                    c = IndianaJones.searchByFrenchName(enteredCountry);
+                    c = IndianaJones.getByFrenchName(enteredCountry);
                     break;
                 case "Nom EN":
                     c = IndianaJones.getByEngName(enteredCountry);

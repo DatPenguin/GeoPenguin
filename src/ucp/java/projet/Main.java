@@ -1,9 +1,13 @@
 package ucp.java.projet;
 
 import ucp.java.projet.gui.PenguinWindow;
-import ucp.java.projet.utilities.CountryList;
-import ucp.java.projet.utilities.Importer;
-import ucp.java.projet.utilities.SerializeSettings;
+import ucp.java.projet.utilities.*;
+
+import java.util.Scanner;
+
+/*
+    TODO : Gestion args console, Parsing superficie, calcul densite, affichage densite, verif compatibilite 1.7
+ */
 
 /**
  * @author Matteo Staiano, Morgane Guisy
@@ -47,12 +51,12 @@ public class Main {
     /**
      * Permet d'initialiser tous les chemins d'acces en tenant compte du BASE_FOLDER
      */
-    public static void initStrings() {
+    private static void initStrings() {
         BASE_FOLDER = SerializeSettings.deserialize("settings");
         if (BASE_FOLDER == null && !CONSOLE_MODE)
             BASE_FOLDER = PenguinWindow.whereAreTheFiles();
-        else if (CONSOLE_MODE)
-            BASE_FOLDER = "";
+        else if (BASE_FOLDER == null && CONSOLE_MODE)
+            consoleAskBaseFolder();
         COUNTRY_POP = BASE_FOLDER + "POP.csv";
         COUNTRY_CODES = BASE_FOLDER + "country_codes_iso.csv";
         FIPS_CODES = BASE_FOLDER + "sourceXML.xml";
@@ -62,23 +66,34 @@ public class Main {
      * @param args Arguments de lancement
      */
     public static void main(String[] args) {
-        initStrings();
-        new Importer();                      // Un simple appel de l'Importer le lance
-
         if (argsContain(args, "console")) {             // Verifie si on veut lancer le programme en mode console
             System.err.println("Console mode");         // Confirme le lancement en console
             CONSOLE_MODE = true;
-            System.out.println(countryList.toString());
         } else {
             System.err.println("GUI mode");             // Confirme le lancement en GUI
-            p = new PenguinWindow();                    // Lance le GUI
+            CONSOLE_MODE = false;                    // Lance le GUI
         }
 
-        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {    // Execute le code suivant a la fermeture du programme
-            public void run() {
-                SerializeSettings.serialize();
-            }
-        }));
+        initStrings();
+        new Importer();                      // Un simple appel de l'Importer le lance
+
+        if (!CONSOLE_MODE)
+            p = new PenguinWindow();
+        else
+            goConsole();
+
+        if (!CONSOLE_MODE)
+            Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {    // Execute le code suivant a la fermeture du programme
+                public void run() {
+                    SerializeSettings.serialize();
+                }
+            }));
+        else
+            Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {    // Execute le code suivant a la fermeture du programme
+                public void run() {
+                    SerializeSettings.serializeConsole();
+                }
+            }));
     }
 
     /**
@@ -98,5 +113,38 @@ public class Main {
             if (s.contains(parsed))
                 return true;
         return false;
+    }
+
+    public static void consoleAskBaseFolder() {
+        Scanner s = new Scanner(System.in);
+        System.out.println("Veuillez entrer le chemin du dossier contenant les fichiers de donnees...");
+        BASE_FOLDER = s.nextLine();
+        s.close();
+    }
+
+    public static void goConsole() {
+        Country c;
+        Scanner s = new Scanner(System.in);
+        System.out.println("Selon quel critere souhaitez-vous rechercher un pays ?\n1. Nom FR\n2. Nom EN\n3. ISO2");
+        String str = s.nextLine();
+        switch (str) {
+            case "1":
+                System.out.println("Entrez le nom francais du pays :");
+                c = IndianaJones.getByFrenchName(s.nextLine());
+                break;
+            case "2":
+                System.out.println("Entrez le nom anglais du pays :");
+                c = IndianaJones.getByEngName(s.nextLine());
+                break;
+            case "3":
+                System.out.println("Entrez le code ISO2 du pays :");
+                c = IndianaJones.getByISO2(s.nextLine());
+                break;
+            default:
+                System.err.println("Choix invalide");
+                return;
+        }
+        System.out.print(c.toString());
+        s.close();
     }
 }
