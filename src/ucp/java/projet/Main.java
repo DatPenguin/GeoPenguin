@@ -51,7 +51,7 @@ public class Main {
     /**
      * Permet d'initialiser tous les chemins d'acces en tenant compte du BASE_FOLDER
      */
-    private static void initStrings() {
+    public static void initStrings() {
         BASE_FOLDER = SerializeSettings.deserialize("settings");
         if (BASE_FOLDER == null && !CONSOLE_MODE)
             BASE_FOLDER = PenguinWindow.whereAreTheFiles();

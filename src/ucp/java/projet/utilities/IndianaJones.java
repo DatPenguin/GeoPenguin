@@ -51,7 +51,7 @@ public class IndianaJones {
         Country c;
         for (String s : Main.countryList.keySet()) {
             c = Main.countryList.get(s);
-            if (c.getFrenchName().contains(frName))
+            if (c.getFrenchName().toLowerCase().contains(frName.toLowerCase()))
                 return c;
         }
         return null;
