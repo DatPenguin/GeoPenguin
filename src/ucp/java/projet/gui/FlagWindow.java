@@ -13,8 +13,19 @@ import java.awt.image.BufferedImage;
 
 public class FlagWindow extends JFrame {
 
+    /**
+     * Panneau contenant tous les composants
+     */
     private JPanel panel = new JPanel();
-    private JLabel background = new JLabel();
+
+    /**
+     * Label permettant d'afficher le drapeau
+     */
+    private JLabel flag = new JLabel();
+
+    /**
+     * Label en arriere-plan, ne s'affichant que si aucun drapeau n'est trouvable
+     */
     private JLabel errorLabel = new JLabel();
 
     /**
@@ -31,10 +42,11 @@ public class FlagWindow extends JFrame {
         this.setResizable(false);
         this.setContentPane(panel);
 
-        background.setBounds(0, -14, 500, 300);
+        flag.setBounds(0, -14, 500, 300);
 
         BufferedImage i = null;
 
+        // On cherche l'image
         try {
             i = PenguinWindow.toBufferedImage(new ImageIcon("flags/" +
                     Main.countryList.get(Main.getWindow().getComboBox().getSelectedItem()).getFIPS().toLowerCase() + "-lgflag.gif").getImage());
@@ -42,10 +54,11 @@ public class FlagWindow extends JFrame {
             System.err.println("Flag not found");
         }
 
+        // Si on a reussi a trouver et a bufferiser l'image
         if (i != null)
-            background.setIcon(new ImageIcon(i.getScaledInstance(500, 273, Image.SCALE_SMOOTH))); // Parametrage du fond de la fenetre
-        background.setVisible(true);
-        panel.add(background);
+            flag.setIcon(new ImageIcon(i.getScaledInstance(500, 273, Image.SCALE_SMOOTH))); // Parametrage du fond de la fenetre
+        flag.setVisible(true);
+        panel.add(flag);
 
         // Texte s'affichant si aucun drapeau n'a pu etre trouve
         errorLabel.setBounds(160, 120, 1000, 15);

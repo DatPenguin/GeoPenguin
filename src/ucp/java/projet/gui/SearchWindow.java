@@ -15,14 +15,44 @@ import java.awt.event.ActionListener;
  */
 public class SearchWindow extends JFrame implements ActionListener {
 
+    /**
+     * Panneau contenant tous les composants
+     */
     private JPanel panel = new JPanel();
+
+    /**
+     * Liste des criteres a partir desquels on peut chercher un pays
+     */
     private String[] critereList = {"Nom FR", "Nom EN", "ISO2", "ISO3"};
+
+    /**
+     * Menu deroulant contenant tous les criteres precedemment definis
+     */
     private JComboBox critere = new JComboBox(critereList);
+
+    /**
+     * Champ de texte dans lequel on entre ce qu'on cherche
+     */
     private JTextField pays = new JTextField();
+
+    /**
+     * Bouton lancant la recherche
+     */
     private JButton searchButton = new JButton();
+
+    /**
+     * Informations du pays
+     */
     private JTextArea generated = new JTextArea();
+
+    /**
+     * Label permettant d'afficher le fond de la fenetre
+     */
     private JLabel background = new JLabel();
 
+    /**
+     * Constructeur initialisant tous les composants
+     */
     public SearchWindow() {
         this.setLayout(null);
         this.setTitle("Recherche avancée");
@@ -67,6 +97,12 @@ public class SearchWindow extends JFrame implements ActionListener {
         this.setVisible(true);
     }
 
+    /**
+     * Genere le texte a afficher en fonction des informations disponibles
+     *
+     * @param c Pays en cours de traitement
+     * @return Texte a afficher
+     */
     private String outText(Country c) {
         String s = "Nom : " + c.getFrenchName();
         if (c.getPop() != null)
@@ -76,6 +112,10 @@ public class SearchWindow extends JFrame implements ActionListener {
         return s;
     }
 
+    /**
+     * Methode de gestion des evenements de la JFrame
+     * @param e Action effectuee
+     */
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == searchButton) {
             String critereString = (String) critere.getSelectedItem();

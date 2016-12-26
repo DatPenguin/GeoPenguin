@@ -28,6 +28,9 @@ public class Main {
      */
     public static String COUNTRY_CODES;
 
+    /**
+     * Superficie du pays
+     */
     public static String AREA;
 
     /**
@@ -118,6 +121,9 @@ public class Main {
         return false;
     }
 
+    /**
+     * Methode permettant la saisie du chemin des fichiers de donnees en mode console
+     */
     public static void consoleAskBaseFolder() {
         Scanner s = new Scanner(System.in);
         System.out.println("Veuillez entrer le chemin du dossier contenant les fichiers de donnees...");
@@ -125,6 +131,9 @@ public class Main {
         s.close();
     }
 
+    /**
+     * Methode lancant l'execution console
+     */
     public static void goConsole() {
         Country c;
         Scanner s = new Scanner(System.in);

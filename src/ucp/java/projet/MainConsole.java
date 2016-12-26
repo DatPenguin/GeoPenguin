@@ -5,7 +5,8 @@ import ucp.java.projet.utilities.IndianaJones;
 import ucp.java.projet.utilities.SerializeSettings;
 
 /**
- * @author Matteo Staiano
+ * @author Matteo Staiano, Morgane Guisy
+ * @description Main ne concernant que l'executable console
  */
 public class MainConsole {
     public static void main(String[] args) {

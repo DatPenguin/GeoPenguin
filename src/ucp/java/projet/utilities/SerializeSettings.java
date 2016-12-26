@@ -9,6 +9,9 @@ import java.io.*;
  * @description Permet de serialiser les parametres pour les conserver entre deux utilisations du programme
  */
 public class SerializeSettings {
+    /**
+     * Methode lancant la serialisation en mode GUI
+     */
     public static void serialize() {
         ObjectOutputStream oos;
         String str = Main.getWindow().getCurrentCountry().getFrenchName();
@@ -30,7 +33,9 @@ public class SerializeSettings {
         }
     }
 
-    //TODO Trouver comment serialiser le dernier choix en console
+    /**
+     * Methode lancant la serialisation en mode console
+     */
     public static void serializeConsole() {
         ObjectOutputStream oos;
         String str = Main.BASE_FOLDER;
@@ -43,6 +48,12 @@ public class SerializeSettings {
         }
     }
 
+    /**
+     * Methode deserialisant les fichiers precedemment crees
+     *
+     * @param file Fichier a deserialiser
+     * @return Donnees correspondantes au fichier envoye en parametre
+     */
     public static String deserialize(String file) {
         ObjectInputStream ois;
         String out = null;

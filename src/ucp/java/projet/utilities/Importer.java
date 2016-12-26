@@ -13,12 +13,34 @@ import java.io.IOException;
  */
 public class Importer {
 
+    /**
+     * FileReader permettant la lecture d'un fichier
+     */
     private FileReader fileReader;
+
+    /**
+     * BufferedReader permettant la gestion du flux d'entree
+     */
     private BufferedReader reader;
+
+    /**
+     * Buffer initialise pour eviter une valeur null
+     */
     private String buffer = "";
+
+    /**
+     * Variable tampon contenant le pays en cours de traitement
+     */
     private Country c;
+
+    /**
+     * Chaine de caracteres contenant le nom deserialise du dernier pays choisi
+     */
     public static String deserializedName;
 
+    /**
+     * Constructeur, lance toutes les phases d'importation des donnees
+     */
     public Importer() {
         try {
             deserializedName = SerializeSettings.deserialize("country");
@@ -32,6 +54,11 @@ public class Importer {
         }
     }
 
+    /**
+     * Methode lisant et stockant les informations basiques des pays
+     *
+     * @throws IOException Erreur si le fichier de donnees est introuvable
+     */
     private void readBasics() throws IOException {
         fileReader = new FileReader(Main.COUNTRY_CODES);
         reader = new BufferedReader(fileReader);
@@ -46,6 +73,10 @@ public class Importer {
         }
     }
 
+    /**
+     * Methode lisant et stockant les informations FIPS des pays
+     * @throws IOException Erreur si le fichier de donnees est introuvable
+     */
     private void readFIPS() throws IOException {
         fileReader = new FileReader(Main.FIPS_CODES);
         reader = new BufferedReader(fileReader);
@@ -60,6 +91,10 @@ public class Importer {
         }
     }
 
+    /**
+     * Methode lisant et stockant les informations de superficie des pays
+     * @throws IOException Erreur si le fichier de donnees est introuvable
+     */
     private void readSup() throws IOException {
         fileReader = new FileReader(Main.AREA);
         reader = new BufferedReader(fileReader);
@@ -72,6 +107,10 @@ public class Importer {
         }
     }
 
+    /**
+     * Methode lisant et stockant les informations de population des pays
+     * @throws IOException Erreur si le fichier de donnees est introuvable
+     */
     private void readPop() throws IOException {
         fileReader = new FileReader(Main.COUNTRY_POP);
         reader = new BufferedReader(fileReader);
@@ -88,8 +127,12 @@ public class Importer {
         }
     }
 
+    /**
+     * Methode extrayant les donnees basiques d'une chaine de caracteres et les stockant dans l'objet Country
+     * @param s Chaine de donnees brute
+     */
     private void csvParser(String s) {
-        String[] buffer = s.split(",(?=([^\\\"]*\\\"[^\\\"]*\\\")*[^\\\"]*$)", -1);
+        String[] buffer = s.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
         for (int i = 0; i < 5; i++)
             if (buffer[i].startsWith(" "))
                 buffer[i] = buffer[i].substring(1);
@@ -100,12 +143,20 @@ public class Importer {
         c.setNumeric(buffer[4].replaceAll("\"", ""));
     }
 
+    /**
+     * Methode extrayant les donnees de population d'une chaine de caracteres et les stockant dans l'objet Country
+     * @param s Chaine de donnees brute
+     */
     private void popParser(String s) {
-        String[] buffer = s.split(",(?=([^\\\"]*\\\"[^\\\"]*\\\")*[^\\\"]*$)", -1);
+        String[] buffer = s.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
         if (IndianaJones.getByISO3(buffer[0]) != null)
             IndianaJones.getByISO3(buffer[0].replaceAll("\"", "")).setPop(buffer[4].replaceAll("\"", "").replaceAll(",", " ") + " 000");
     }
 
+    /**
+     * Methode extrayant les donnees FIPS d'une chaine de caracteres et les stockant dans l'objet Country
+     * @param s Chaine de donnees brute
+     */
     private void xmlParser(String s) {
         String[] buffer = s.split("\"", 0);
         if (!buffer[0].startsWith("</") && !buffer[0].startsWith("<!"))
@@ -115,34 +166,31 @@ public class Importer {
             }
     }
 
+    /**
+     * Methode extrayant les donnees de superficie d'une chaine de caracteres et les stockant dans l'objet Country
+     * @param s Chaine de donnees brute
+     */
     private void areaParser(String s) {
-        /*String[] buffer = s.split(" ", -1);
-        for(String a : buffer) {
-            System.out.println(a);
-            cleanArea(a);
-        }*/
-        cleanArea(s);
-    }
-
-    //TODO Finir de nettoyer la String
-    private void cleanArea(String s) {
         String name;
         int i = 0;
         while (i < s.length() && !Character.isLetter(s.charAt(i)))
             i++;
         s = s.substring(i);
         name = getName(s);
-        //System.out.println(name + ' ' + getSup(s));
         try {
             IndianaJones.getByFIPSName(name).setArea(getSup(s));
             IndianaJones.getByFIPSName(name).calcDensity();
         } catch (NullPointerException e) {
-            //System.err.println("Erreur pour le pays : " + name);
         } catch (Exception f) {
             f.printStackTrace();
         }
     }
 
+    /**
+     * Methode extrayant le nom d'un pays a partir d'une chaine de caracteres de superficie
+     * @param s Chaine de caracteres de superficie
+     * @return Nom du pays
+     */
     private String getName(String s) {
         int i = 0;
         while (Character.isLetter(s.charAt(i)) || Character.isLetter(s.charAt(i + 1)))
@@ -150,6 +198,11 @@ public class Importer {
         return (s.substring(0, i));
     }
 
+    /**
+     * Methode extrayant la superficie d'un pays a partir d'une chaine de caracteres de superficie
+     * @param s Chaine de caracteres de superficie
+     * @return Superficie du pays
+     */
     private String getSup(String s) {
         int i = 0;
         while (!Character.isDigit(s.charAt(i)))

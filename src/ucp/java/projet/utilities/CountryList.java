@@ -8,6 +8,12 @@ import java.util.TreeMap;
  * @description Liste de pays heritant de TreeMap
  */
 public class CountryList extends TreeMap<String, Country> {
+
+    /**
+     * Methode toString
+     *
+     * @return Chaine de caracteres permettant d'afficher la liste
+     */
     @Override
     public String toString() {
         String s = new String();

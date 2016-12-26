@@ -11,18 +11,38 @@ import java.util.Arrays;
 
 /**
  * @author Matteo Staiano, Morgane Guisy
- * @description Fenetre affichant les cartes du pays choisi et de la region du monde correspondante
+ * @description Fenetre affichant les cartes du pays choisi et de la region du monde correspondante.
  */
 public class MapWindow extends JFrame {
 
-
-    // Initialisation des elements
+    /**
+     * Panneau contenant tous les elements
+     */
     private JPanel panel = new JPanel();
+
+    /**
+     * Label affichant la carte du pays
+     */
     private JLabel countryMap = new JLabel();
+
+    /**
+     * Label affichant la carte de la region
+     */
     private JLabel regionMap = new JLabel();
+
+    /**
+     * Label en arriere-plan, visible uniquement si aucune carte n'a pu etre trouvee
+     */
     private JLabel errorLabel = new JLabel();
+
+    /**
+     * Variable stockant temporairement le chemin d'acces des cartes trouvees
+     */
     private String foundMap = new String();
 
+    /**
+     * Unique constructeur, initialise toutes les donnees necessaires
+     */
     public MapWindow() {
         panel.setLayout(null);
 
@@ -73,7 +93,12 @@ public class MapWindow extends JFrame {
         this.setVisible(true);
     }
 
-
+    /**
+     * Fonction recherchant une carte de facon recursive
+     *
+     * @param folder  Dossier de travail actuel
+     * @param mapName Nom de la carte recherchee
+     */
     public void mapFinder(File folder, String mapName) {
         String[] files = folder.list();
         if (Arrays.asList(files).contains(mapName)) {

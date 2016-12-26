@@ -18,17 +18,59 @@ import java.awt.image.BufferedImage;
  */
 public class PenguinWindow extends JFrame implements ActionListener {
 
+    /**
+     * Panel contenant tous les composants
+     */
     private JPanel panel = new JPanel();
+
+    /**
+     * Zone de texte contenant les informations sur le pays choisi
+     */
     private JTextArea generated = new JTextArea();
-    private JLabel genLabel = new JLabel();
+
+    /**
+     * Label de bienvenue
+     */
+    private JLabel welcomeLabel = new JLabel();
+
+    /**
+     * Bouton de validation
+     */
     private JButton valider = new JButton();
+
+    /**
+     * Bouton ouvrant la fenetre des drapeaux
+     */
     private JButton flagButton = new JButton();
+
+    /**
+     * Bouton ouvrant la fenetre des cartes
+     */
     private JButton mapButton = new JButton();
+
+    /**
+     * Bouton ouvrant la fenetre de recherche avancee
+     */
     private JButton advancedButton = new JButton();
+
+    /**
+     * Label servant a afficher la banniere (ici, un pingouin)
+     */
     private JLabel banner = new JLabel();
+
+    /**
+     * Label permettant d'afficher le fond de la fenetre
+     */
     private JLabel background = new JLabel();
+
+    /**
+     * Menu deroulant contenant la liste des pays
+     */
     private JComboBox<String> comboBox = new JComboBox(Main.countryList.keySet().toArray());
 
+    /**
+     * Constructeur initialisant tous les composants
+     */
     public PenguinWindow() {
 
         panel.setLayout(null);
@@ -82,11 +124,11 @@ public class PenguinWindow extends JFrame implements ActionListener {
         valider.addActionListener(this);
         panel.add(valider);
 
-        genLabel.setBounds(125, 100, 300, 15);
-        genLabel.setText("Bienvenue dans GeoPenguin");
-        genLabel.setForeground(Color.white);
-        genLabel.setVisible(true);
-        panel.add(genLabel);
+        welcomeLabel.setBounds(125, 100, 300, 15);
+        welcomeLabel.setText("Bienvenue dans GeoPenguin");
+        welcomeLabel.setForeground(Color.white);
+        welcomeLabel.setVisible(true);
+        panel.add(welcomeLabel);
 
         banner.setBounds(5, 5, 77, 100);
         banner.setIcon(new ImageIcon(Main.class.getResource("/penguin.png")));
@@ -104,6 +146,11 @@ public class PenguinWindow extends JFrame implements ActionListener {
         this.setVisible(true);
     }
 
+    /**
+     * Genere le texte a afficher en fonction des informations disponibles
+     *
+     * @return Texte a afficher
+     */
     private String outText() {
         Country c = Main.countryList.get(comboBox.getSelectedItem());
         String s = "Nom : " + c.getFrenchName();
@@ -114,21 +161,29 @@ public class PenguinWindow extends JFrame implements ActionListener {
         return s;
     }
 
+    /**
+     * Methode de gestion des evenements de la JFrame
+     *
+     * @param e Action effectuee
+     */
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == valider) {
             Country c = Main.countryList.get(comboBox.getSelectedItem());
             generated.setText(outText());
-        }
-        else if (e.getSource() == flagButton) {
+        } else if (e.getSource() == flagButton) {
             new FlagWindow();
-        }
-        else if (e.getSource() == mapButton) {
+        } else if (e.getSource() == mapButton) {
             new MapWindow();
         } else if (e.getSource() == advancedButton) {
             new SearchWindow();
         }
     }
 
+    /**
+     * Retourne le pays actuellement selectionne
+     *
+     * @return Pays actuellement selectionne
+     */
     public Country getCurrentCountry() {
         return Main.countryList.get(comboBox.getSelectedItem());
     }
@@ -156,10 +211,20 @@ public class PenguinWindow extends JFrame implements ActionListener {
         return bimage;
     }
 
+    /**
+     * Getter retournant la combobox
+     *
+     * @return Combobox de la fenetre
+     */
     public JComboBox<String> getComboBox() {
         return comboBox;
     }
 
+    /**
+     * Methode demandant a l'utilisateur l'emplacement des fichiers de donnees et retournant celui-ci en tant que String
+     *
+     * @return Chemin d'acces des fichiers de donnees
+     */
     public static String whereAreTheFiles() {
         return JOptionPane.showInputDialog("Veuillez entrer l'emplacement des fichiers de donnees :");
     }
