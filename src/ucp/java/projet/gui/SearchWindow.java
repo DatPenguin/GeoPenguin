@@ -33,12 +33,25 @@ public class SearchWindow extends JFrame implements ActionListener {
         this.setIconImage(Toolkit.getDefaultToolkit().getImage("resources/penguin.png"));
         panel.setLayout(null);
 
+        generated.setBounds(200, 100, 300, 200);
+        generated.setVisible(true);
+        generated.setEditable(false);
+        generated.setOpaque(false);
+        generated.setForeground(Color.white);
+        panel.add(generated);
+
+        searchButton.setBounds(50, 300, 125, 30);
+        searchButton.setText("Rechercher");
+        searchButton.setVisible(true);
+        searchButton.addActionListener(this);
+        panel.add(searchButton);
+
         critere.setBounds(50, 100, 100, 30);
         critere.setEditable(false);
         critere.setVisible(true);
         panel.add(critere);
 
-        pays.setBounds(100, 150, 100, 30);
+        pays.setBounds(50, 150, 100, 30);
         pays.setEditable(true);
         pays.setVisible(true);
         panel.add(pays);
@@ -48,21 +61,19 @@ public class SearchWindow extends JFrame implements ActionListener {
         background.setVisible(true);
         panel.add(background);
 
-        searchButton.setBounds(100, 190, 125, 30);
-        searchButton.setText("Rechercher");
-        searchButton.setVisible(true);
-        searchButton.addActionListener(this);
-        panel.add(searchButton);
-
-        generated.setBounds(150, 100, 300, 200);
-        generated.setVisible(true);
-        generated.setEditable(false);
-        panel.add(generated);
-
         this.getRootPane().setDefaultButton(searchButton);
 
         panel.setVisible(true);
         this.setVisible(true);
+    }
+
+    private String outText(Country c) {
+        String s = "Nom : " + c.getFrenchName();
+        if (c.getPop() != null)
+            s = s + ("\nPopulation : " + c.getPop());
+        if (c.getPopDensity() != 0)
+            s = s + ("\nDensity : " + c.getPopDensity());
+        return s;
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -93,9 +104,7 @@ public class SearchWindow extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(panel, "Aucun pays n'a été trouvé", "Erreur", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            generated.setText("English Name : " + c.getEnglishName() + "\nFrench Name : " + c.getFrenchName() +
-                    "\nISO2 : " + c.getISO2() + "\nISO3 : " + c.getISO3() + "\nNumeric Value : " + c.getNumeric() + "\nPopulation : " + c.getPop() + "\nFIPS Name : "
-                    + c.getFIPSName() + "\nFIPS : " + c.getFIPS());
+            generated.setText(outText(c));
         }
     }
 }

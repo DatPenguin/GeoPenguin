@@ -6,7 +6,7 @@ import ucp.java.projet.utilities.*;
 import java.util.Scanner;
 
 /*
-    TODO : Gestion args console, Parsing superficie, calcul densite, affichage densite, verif compatibilite 1.7
+    TODO : Verif compatibilite 1.7, Javadoc
  */
 
 /**
@@ -27,6 +27,8 @@ public class Main {
      * Emplacement des codes pays
      */
     public static String COUNTRY_CODES;
+
+    public static String AREA;
 
     /**
      * Emplacement des references FIPS
@@ -60,6 +62,7 @@ public class Main {
         COUNTRY_POP = BASE_FOLDER + "POP.csv";
         COUNTRY_CODES = BASE_FOLDER + "country_codes_iso.csv";
         FIPS_CODES = BASE_FOLDER + "sourceXML.xml";
+        AREA = BASE_FOLDER + "rawdata_2147.txt";
     }
 
     /**

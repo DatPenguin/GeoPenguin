@@ -104,12 +104,20 @@ public class PenguinWindow extends JFrame implements ActionListener {
         this.setVisible(true);
     }
 
+    private String outText() {
+        Country c = Main.countryList.get(comboBox.getSelectedItem());
+        String s = "Nom : " + c.getFrenchName();
+        if (c.getPop() != null)
+            s = s + ("\nPopulation : " + c.getPop());
+        if (c.getPopDensity() != 0)
+            s = s + ("\nDensity : " + c.getPopDensity());
+        return s;
+    }
+
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == valider) {
             Country c = Main.countryList.get(comboBox.getSelectedItem());
-            generated.setText("English Name : " + c.getEnglishName() + "\nFrench Name : " + c.getFrenchName() +
-                    "\nISO2 : " + c.getISO2() + "\nISO3 : " + c.getISO3() + "\nNumeric Value : " + c.getNumeric() + "\nPopulation : " + c.getPop() + "\nFIPS Name : "
-                    + c.getFIPSName() + "\nFIPS : " + c.getFIPS());
+            generated.setText(outText());
         }
         else if (e.getSource() == flagButton) {
             new FlagWindow();

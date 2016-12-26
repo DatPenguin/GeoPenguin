@@ -18,6 +18,15 @@ public class Country {
     private String pop;
     private String FIPS;
     private String FIPSName;
+    private String area;
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
 
     public String getFIPS() {
         return FIPS;
@@ -130,9 +139,13 @@ public class Country {
                 "\nISO2 ='" + ISO2 + '\'' +
                 "\nISO3 ='" + ISO3 + '\'' +
                 "\nCode Numerique ='" + numeric + '\'' +
-                "\nDensite de Population =" + popDensity +
-                "\nPopulation ='" + pop + '\'' +
+                "\nDensite de Population ='" + popDensity +
+                "'\nPopulation ='" + pop + '\'' +
                 "\nFIPS ='" + FIPS + '\'' +
                 "\nNom FIPS ='" + FIPSName + '\'';
+    }
+
+    public void calcDensity() {
+        this.popDensity = (Integer.parseInt(pop.replaceAll(" ", ""))) / (Integer.parseInt(area.replaceAll(" ", "")));
     }
 }

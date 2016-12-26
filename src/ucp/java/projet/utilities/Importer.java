@@ -25,6 +25,7 @@ public class Importer {
             readBasics();
             readPop();
             readFIPS();
+            readSup();
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Erreur de lecture des fichiers");
@@ -55,6 +56,18 @@ public class Importer {
         while (buffer != null) {
             c = new Country(buffer);
             xmlParser(buffer);
+            buffer = reader.readLine();
+        }
+    }
+
+    private void readSup() throws IOException {
+        fileReader = new FileReader(Main.AREA);
+        reader = new BufferedReader(fileReader);
+
+        buffer = reader.readLine();
+        while (buffer != null) {
+            c = new Country(buffer);
+            areaParser(buffer);
             buffer = reader.readLine();
         }
     }
@@ -100,6 +113,48 @@ public class Importer {
                 IndianaJones.getByFIPSName(buffer[1]).setFIPSName(buffer[1]);
                 IndianaJones.getByFIPSName(buffer[1]).setFIPS(buffer[3]);
             }
+    }
+
+    private void areaParser(String s) {
+        /*String[] buffer = s.split(" ", -1);
+        for(String a : buffer) {
+            System.out.println(a);
+            cleanArea(a);
+        }*/
+        cleanArea(s);
+    }
+
+    //TODO Finir de nettoyer la String
+    private void cleanArea(String s) {
+        String name;
+        int i = 0;
+        while (i < s.length() && !Character.isLetter(s.charAt(i)))
+            i++;
+        s = s.substring(i);
+        name = getName(s);
+        //System.out.println(name + ' ' + getSup(s));
+        try {
+            IndianaJones.getByFIPSName(name).setArea(getSup(s));
+            IndianaJones.getByFIPSName(name).calcDensity();
+        } catch (NullPointerException e) {
+            //System.err.println("Erreur pour le pays : " + name);
+        } catch (Exception f) {
+            f.printStackTrace();
+        }
+    }
+
+    private String getName(String s) {
+        int i = 0;
+        while (Character.isLetter(s.charAt(i)) || Character.isLetter(s.charAt(i + 1)))
+            i++;
+        return (s.substring(0, i));
+    }
+
+    private String getSup(String s) {
+        int i = 0;
+        while (!Character.isDigit(s.charAt(i)))
+            i++;
+        return s.substring(i).replaceAll(",", "");
     }
 
 }
